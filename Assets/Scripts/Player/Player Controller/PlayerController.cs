@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerController : MonoBehaviour
 { 
@@ -9,12 +10,15 @@ public class PlayerController : MonoBehaviour
     private IJump JumpHandler;
 
     private IMouseLook MouseLookHandler;
-       
+    
+    PhotonView photonView;
+
     void Awake()
     {
         MovementHandler = GetComponent<IMovement>();
         JumpHandler = GetComponent<IJump>();
         MouseLookHandler = GetComponent<IMouseLook>();
+        photonView = GetComponent<PhotonView>();
     }
 
     void Start()
@@ -25,14 +29,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // handle movement 
-        MovementHandler.HandleMovement();
+        if(photonView.IsMine)
+        {
+          // handle movement 
+          MovementHandler.HandleMovement();
 
-        // handle jump 
-        JumpHandler.HandleJump();
+          // handle jump 
+          JumpHandler.HandleJump();
 
-        // handle mouse rotation
-        MouseLookHandler.HandleMouseLookMotion();    
+          // handle mouse rotation
+          MouseLookHandler.HandleMouseLookMotion();    
+        }
     }
   
     void LockCursor()
