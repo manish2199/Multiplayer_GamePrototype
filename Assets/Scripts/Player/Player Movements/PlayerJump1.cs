@@ -12,7 +12,7 @@ public class PlayerJump1 : MonoBehaviour , IJump
     [SerializeField] LayerMask PlatformLayer;
     
     
-    public void HandleJump()
+    public bool HandleJumpInput()
     {
        // handle Jump 
        RaycastHit hit;
@@ -20,8 +20,14 @@ public class PlayerJump1 : MonoBehaviour , IJump
        
        if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
        {
-           PlayerRigidBody.AddForce(0 , JumpForce  , 0 );
+           return true;
        }
+       return false;
+    } 
+
+    public void Jump()
+    {
+        PlayerRigidBody.AddForce(0 , JumpForce , 0 );
     }
    
 }

@@ -13,8 +13,11 @@ public class PlayerController : MonoBehaviour
     
     PhotonView photonView;
 
+    private bool CanJummp;
+
     void Awake()
     {
+        CanJummp = false;
         MovementHandler = GetComponent<IMovement>();
         JumpHandler = GetComponent<IJump>();
         MouseLookHandler = GetComponent<IMouseLook>();
@@ -35,10 +38,19 @@ public class PlayerController : MonoBehaviour
           MovementHandler.HandleMovement();
 
           // handle jump 
-          JumpHandler.HandleJump();
+          CanJummp = JumpHandler.HandleJumpInput();
 
           // handle mouse rotation
           MouseLookHandler.HandleMouseLookMotion();    
+        }
+    }
+
+    void FixedUpdate()
+    {
+         // jump 
+        if(CanJummp)
+        {
+          JumpHandler.Jump();
         }
     }
   
