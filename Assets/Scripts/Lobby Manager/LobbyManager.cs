@@ -26,6 +26,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public PlayerItem playerItem;
     public Transform playerItemParent;
 
+    public GameObject PlayButton;
+
     void Awake()
     {
         if(Instance == null)
@@ -130,5 +132,23 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         UpdatePlayerList();
+    }
+  
+
+    void Update()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PlayButton.SetActive(true);
+        }
+        else
+        {
+            PlayButton.SetActive(false);
+        }
+    }
+
+    public void OnClickPlayButton()
+    {
+        PhotonNetwork.LoadLevel("GamePlay");
     }
 }
