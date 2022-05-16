@@ -12,7 +12,6 @@ public class PlayerSpawner : MonoBehaviour
    {
        int randNumber = Random.Range(0,spawnPoints.Length);
        Transform spawnPoint = spawnPoints[randNumber];
-    //    GameObject playerToSpawn = playerPrefbs[PhotonNetwork.LocalPlayer.Cus]
        PhotonNetwork.Instantiate(playerPrefbs.name,spawnPoint.position,Quaternion.identity);
    }
 }
